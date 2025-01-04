@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score,classification_report
+from sklearn.metrics import accuracy_score,precision_recall_fscore_support
 import seaborn as sns
 import matplotlib.pyplot as plt
 # Function Definitions
@@ -177,11 +177,13 @@ else:
             "text/csv",
             key="download-dataset"
         )
-
-    # Evaluation Page
     elif menu == "Evaluation":
         st.header("Evaluation")
         st.write("### Model Performance")
-        st.write(f"**Accuracy**: {accuracy * 100:.2f}%")
-        st.write("### Classification Report")
-        st.text(classification_report(y_test, rf_classifier.predict(X_test)))
+        # Calculate precision, recall, f1-score, and support for each class
+        precision, recall, f1_score, support = precision_recall_fscore_support(y_test, rf_classifier.predict(X_test), average=None)
+        # Display overall metrics (macro average)
+        st.write(f"- Accuracy: {accuracy * 100:.2f}%")
+        st.write(f"- Precision: {precision.mean()* 100:.2f}%")
+        st.write(f"- Recall: {recall.mean()* 100:.2f}%")
+        st.write(f"- F1-Score: {f1_score.mean()* 100:.2f}%")
