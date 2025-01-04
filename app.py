@@ -3,7 +3,8 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,classification_report
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 # Function Definitions
 def extract_hashtags(text):
     if pd.isna(text):
@@ -80,9 +81,6 @@ else:
     # Dashboard Page
     if menu == "Dashboard":
         st.header("Dashboard")
-
-        import seaborn as sns
-        import matplotlib.pyplot as plt
 
         # Set Seaborn theme for styling
         sns.set_theme(style="whitegrid")
